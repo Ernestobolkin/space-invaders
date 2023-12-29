@@ -1,61 +1,82 @@
-document.addEventListener('DOMContentLoaded', function() {
+const keysPressed = {};
+let lastShotTime = 0;
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('main-body-container');
     const ship = document.getElementById('main-ship');
-
-    shipment_movement(ship, container)
-
-    
+    startGame(ship, container);
 });
 
 
-function shipment_movement(ship, container){
+function startGame(ship, container) {
     document.addEventListener('keydown', function(e) {
-        const speed = GameConfig.main_ship.speed;
-        const rect = ship.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
+        keysPressed[e.keyCode] = true;
+    });
 
-        switch(e.keyCode) {
-            case 37: // Left arrow
-                if(rect.left > containerRect.left) {
-                    ship.style.left = (ship.offsetLeft - speed) + 'px';
-                }
-                break;
-            case 38: // Up arrow
-                if(rect.top > containerRect.top) {
-                    ship.style.top = (ship.offsetTop - speed) + 'px';
-                }
-                break;
-            case 39: // Right arrow
-                if(rect.right < containerRect.right) {
-                    ship.style.left = (ship.offsetLeft + speed) + 'px';
-                }
-                break;
-            case 40: // Down arrow
-                if(rect.bottom < containerRect.bottom) {
-                    ship.style.top = (ship.offsetTop + speed) + 'px';
-                }
-                break;
-        }
+    document.addEventListener('keyup', function(e) {
+        keysPressed[e.keyCode] = false;
+    });
+
+    requestAnimationFrame(function() {
+        game_loop(ship, container);
     });
 }
 
 
-function initiate_ship(){
-    //TODO fix this, the background image is not showing
-    const container = document.getElementById('main-body-container');
-    container.innerHTML = '<div id="ship-container"></div>';
-    
-    const ship_container = document.getElementById('ship-container');
-    ship_container.style.width = GameConfig.ship_container.width;
-    ship_container.style.height = GameConfig.ship_container.height;
-    ship_container.innerHTML = '<div id="main-ship"></div>';
+function game_loop(ship, container) {
+    if (keysPressed[37]) { // Left arrow
+        move_ship(ship, 'left');
+    }
+    if (keysPressed[39]) { // Right arrow
+        move_ship(ship, 'right');
+    }
+    if (keysPressed[32]) { // Spacebar
+        shoot_bullet(ship, container)
+    }
 
-    const ship = document.getElementById('main-ship');
-    const background_image_and_path = "";
-    ship.style.background = background_image_and_path;
-    ship.style.width = GameConfig.ship_container.width;
-    ship.style.height = GameConfig.ship_container.height;
-    //for testing 
-    // ship.style.background = "url('assets/ships_sprite.png') no-repeat -31px -35px";
-    ship.style.border = "1px solid red";
+    requestAnimationFrame(function() {
+        game_loop(ship, container);
+    });
+}
+
+function move_ship(ship, direction) {
+    const rect = ship.getBoundingClientRect();
+    const containerRect = ship.parentElement.getBoundingClientRect();
+    const shipSpeed = GameConfig.main_ship.speed;
+
+    if (direction === 'left' && rect.left > containerRect.left) {
+        ship.style.left = (ship.offsetLeft - shipSpeed) + 'px';
+    } else if (direction === 'right' && rect.right < containerRect.right) {
+        ship.style.left = (ship.offsetLeft + shipSpeed) + 'px';
+    }
+}
+
+function shoot_bullet(ship, container) {
+    const currentTime = Date.now();
+    const shotCooldown = GameConfig.bullet_settings.shot_Cooldown;
+    if (currentTime - lastShotTime < shotCooldown) {
+        return;
+    }
+    const bullet = document.createElement('div');
+    bullet.className = 'bullet_one';
+    container.appendChild(bullet);
+
+    const shipRect = ship.getBoundingClientRect();
+    bullet.style.position = 'absolute';
+    bullet.style.left = (shipRect.left + shipRect.width / 2 - 4.5) + 'px';
+    bullet.style.top = shipRect.top - 27 + 'px';
+   
+    const bulletSpeed = GameConfig.bullet_settings.default_speed;
+    function moveBullet() {
+        const currentTop = parseInt(bullet.style.top, 10);
+        if (currentTop + bullet.offsetHeight > 0) {
+            bullet.style.top = (currentTop - bulletSpeed) + 'px';
+            requestAnimationFrame(moveBullet);
+        } else {
+            bullet.remove(); // Remove the bullet once it's off-screen
+        }
+    }
+    lastShotTime = currentTime;
+    requestAnimationFrame(moveBullet);
 }

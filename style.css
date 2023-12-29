@@ -30,4 +30,14 @@ body{
     width: 65px; /* Original width of the sprite */
     height: 51px; /* Original height of the sprite */
     transform: scale(0.5); /* Adjust this value to scale the size */
+    left: 50%; /* Center horizontally */
+    bottom: 8%; /* Position above the bottom */
+}
+
+
+.bullet_one {
+	background: url('assets/ships_sprite.png') no-repeat -187px -1235px;
+	background-size: 256px 1664px;
+	width: 9px;
+	height: 27px;
 }
