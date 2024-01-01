@@ -1,7 +1,7 @@
 const keysPressed = {};
 import { shoot_bullet } from './controllers/BulletsController.js';
 import { move_ship } from './controllers/shipController.js';
-import { build_enemies } from './controllers/enemy_ships.js';
+import { build_enemies, updateEnemyPositions } from './controllers/enemy_ships.js';
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('main-body-container');
     const ship = document.getElementById('main-ship');
@@ -33,6 +33,7 @@ function game_loop(ship, container) {
     if (keysPressed[32]) { // Spacebar
         shoot_bullet(ship, container);
     }
+    updateEnemyPositions();
     requestAnimationFrame(function () {
         game_loop(ship, container);
     });

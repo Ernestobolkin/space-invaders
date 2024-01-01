@@ -1,7 +1,7 @@
 const keysPressed: any = {};
 import { shoot_bullet } from './controllers/BulletsController';
 import { move_ship } from './controllers/shipController';
-import { build_enemies } from './controllers/enemy_ships';
+import { build_enemies, updateEnemyPositions } from './controllers/enemy_ships';
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function startGame(ship: HTMLElement, container: HTMLElement) {
-
     //create enemies
     build_enemies()
+
 
     document.addEventListener('keydown', function (e) {
         keysPressed[e.keyCode] = true;
@@ -43,6 +43,8 @@ function game_loop(ship: HTMLElement, container: HTMLElement) {
     if (keysPressed[32]) { // Spacebar
         shoot_bullet(ship, container)
     }
+
+    updateEnemyPositions();
 
     requestAnimationFrame(function () {
         game_loop(ship, container);

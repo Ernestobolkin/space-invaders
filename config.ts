@@ -2,9 +2,11 @@ export const GameConfig = {
     enemy_ships: {
         id: "enemy-ship",
         background_image_and_path: "background: url('imgs/pngegg (1).png') no-repeat -4px -4px",
-        default_speed: 5,
-        default_group_size: 10,
-        default_group_rows: 5,
+        speed: 0.01,
+        group_size: 5,
+        group_rows: 5,
+        descent: 10,
+        direction: 1,
     },
     game_speed: 1000,
     bullet_settings: {
