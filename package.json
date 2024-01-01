@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --outDir ./build",
+    "start": "tsc --outDir ./build --watch",
+    "build": "tsc --outDir ./build && node fix-import-build.js",
     "clean": "rimraf ./build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "typescript": "^5.3.3"
   }
 }

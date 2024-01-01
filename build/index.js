@@ -1,6 +1,7 @@
 const keysPressed = {};
 let lastShotTime = 0;
 import { GameConfig } from './config.js';
+import { move_ship } from './controllers/shipController.js';
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('main-body-container');
     const ship = document.getElementById('main-ship');
@@ -33,17 +34,6 @@ function game_loop(ship, container) {
     requestAnimationFrame(function () {
         game_loop(ship, container);
     });
-}
-function move_ship(ship, direction) {
-    const rect = ship.getBoundingClientRect();
-    const containerRect = ship.parentElement.getBoundingClientRect();
-    const shipSpeed = GameConfig.main_ship.speed;
-    if (direction === 'left' && rect.left > containerRect.left) {
-        ship.style.left = (ship.offsetLeft - shipSpeed) + 'px';
-    }
-    else if (direction === 'right' && rect.right < containerRect.right) {
-        ship.style.left = (ship.offsetLeft + shipSpeed) + 'px';
-    }
 }
 function shoot_bullet(ship, container) {
     const currentTime = Date.now();
