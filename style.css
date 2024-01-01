@@ -1,5 +1,5 @@
 body{
-    background-color: #f5f5f5;
+    background-color: #3D3B40;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -11,17 +11,29 @@ body{
     box-sizing: border-box;
 }
 
+.shadow{
+    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+}
+
 #main-body-container{
     width: 100vw;
     height: 100vh;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ship-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
     position: absolute;
     width: 100%;
-    height: 100%;
-    transform-origin: top left
+    height: 20%;
+    transform-origin: top left;
+
 }
 .main-ship {
     position: absolute;
@@ -31,13 +43,45 @@ body{
     height: 51px; /* Original height of the sprite */
     transform: scale(0.8); /* Adjust this value to scale the size */
     left: 50%; /* Center horizontally */
-    bottom: 8%; /* Position above the bottom */
-}
+    top:10%; /* Position above the bottom */
 
+}
 
 .bullet_one {
 	background: url('assets/ships_sprite.png') no-repeat -187px -1235px;
 	background-size: 256px 1664px;
 	width: 9px;
 	height: 27px;
+}
+
+#enemy-container {
+    align-self: flex-start;
+    margin-top: 2rem;
+    display: flex;
+    width: 90%;
+    height: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start
+}
+
+.enemy-ship {
+    background-image: url('assets/enemy_ship.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 38px; /* Width from GameConfig */
+    height: 38px; /* Height from GameConfig */
+    margin: 4px; /* Margin from GameConfig */
+    transform: scale(1); /* Adjust scale if needed */
+    
+    /* Add a drop-shadow filter */
+}
+
+.test-div{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transform: scale(.06); /* Adjust this value to scale the size */
+    border: 1px solid red;
 }
