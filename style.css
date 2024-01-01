@@ -29,7 +29,7 @@ body{
     background-size: 256px 1664px; /* Size of the entire sprite sheet */
     width: 65px; /* Original width of the sprite */
     height: 51px; /* Original height of the sprite */
-    transform: scale(0.5); /* Adjust this value to scale the size */
+    transform: scale(0.8); /* Adjust this value to scale the size */
     left: 50%; /* Center horizontally */
     bottom: 8%; /* Position above the bottom */
 }
