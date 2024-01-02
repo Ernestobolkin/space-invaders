@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     startGame(ship, container);
 });
 function startGame(ship, container) {
+    let isGameEnded = false; //TODO finish end game logic
     //create enemies
     build_enemies();
     document.addEventListener('keydown', function (e) {
@@ -19,9 +20,20 @@ function startGame(ship, container) {
     document.addEventListener('keyup', function (e) {
         keysPressed[e.keyCode] = false;
     });
-    requestAnimationFrame(function () {
-        game_loop(ship, container);
-    });
+    if (isGameEnded) {
+        console.log('game ended');
+        cancelAnimationFrame(0);
+    }
+    if (!isGameEnded) {
+        requestAnimationFrame(function () {
+            game_loop(ship, container);
+        });
+    }
+    const newDateTest = new Date();
+    const tt = new Date(new Date().setSeconds(newDateTest.getSeconds() + 5));
+    if (tt > new Date()) {
+        isGameEnded = true;
+    }
 }
 function game_loop(ship, container) {
     if (keysPressed[37]) { // Left arrow

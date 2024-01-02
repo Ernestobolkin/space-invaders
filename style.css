@@ -63,11 +63,12 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    position: relative;
 }
 
 .enemy-ship {
-    position: relative;
+    position: absolute;
     background-image: url('assets/enemy_ship.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -76,13 +77,18 @@ body{
     height: 38px; /* Height from GameConfig */
     margin: 4px; /* Margin from GameConfig */
     transform: scale(1); /* Adjust scale if needed */
-    /* Add a drop-shadow filter */
+    /* border: 1px solid green */
 }
 
-.test-div{
+.explosion{
     position: absolute;
-    width: 20px;
-    height: 20px;
-    transform: scale(.06); /* Adjust this value to scale the size */
-    border: 1px solid red;
+    background-image: url('assets/explosion.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 38px; /* Width from GameConfig */
+    height: 38px; /* Height from GameConfig */
+    margin: 4px; /* Margin from GameConfig */
+    transform: scale(1.5); /* Adjust scale if needed */
+    /* border: 1px solid green */
 }

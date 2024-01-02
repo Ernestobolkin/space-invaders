@@ -6,8 +6,10 @@ export function shoot_bullet(ship, container) {
     if (currentTime - lastShotTime < shotCooldown) {
         return;
     }
+    const bullets = container.getElementsByClassName('bullet');
+    const bulletCount = bullets.length;
     const bullet = document.createElement('div');
-    bullet.className = 'bullet_one shadow';
+    bullet.className = 'bullet_one shadow bullet test_' + bulletCount;
     container.appendChild(bullet);
     const shipRect = ship.getBoundingClientRect();
     bullet.style.position = 'absolute';
