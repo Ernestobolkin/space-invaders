@@ -1,5 +1,5 @@
 const keysPressed = {};
-import { shoot_bullet } from './controllers/BulletsController.js';
+import { enemy_shoot_bullet, shoot_bullet } from './controllers/BulletsController.js';
 import { move_ship } from './controllers/shipController.js';
 import { build_enemies, updateEnemyPositions } from './controllers/enemy_ships.js';
 document.addEventListener('DOMContentLoaded', function () {
@@ -46,6 +46,7 @@ function game_loop(ship, container) {
         shoot_bullet(ship, container);
     }
     updateEnemyPositions();
+    enemy_shoot_bullet(container);
     requestAnimationFrame(function () {
         game_loop(ship, container);
     });

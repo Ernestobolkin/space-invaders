@@ -37,7 +37,7 @@ body{
 }
 .main-ship {
     position: absolute;
-    background: url('assets/ships_sprite.png') no-repeat -31px -35px;
+    background: url('./src/assets/ships_sprite.png') no-repeat -31px -35px;
     background-size: 256px 1664px; /* Size of the entire sprite sheet */
     width: 65px; /* Original width of the sprite */
     height: 51px; /* Original height of the sprite */
@@ -48,7 +48,7 @@ body{
 }
 
 .bullet_one {
-	background: url('assets/ships_sprite.png') no-repeat -187px -1235px;
+	background: url('./src/assets/ships_sprite.png') no-repeat -187px -1235px;
 	background-size: 256px 1664px;
 	width: 9px;
 	height: 27px;
@@ -63,26 +63,41 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     position: relative;
+}
+
+.test{
+    border: 1px solid red;
+    background-color: rebeccapurple;
+    width: 400px;
+    height: 350px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
 }
 
 .enemy-ship {
     position: absolute;
-    background-image: url('assets/enemy_ship.png');
     background-position: center;
+    background-image: url('./src/assets/enemy-ship-1.png');
     background-repeat: no-repeat;
     background-size: cover;
-    width: 38px; /* Width from GameConfig */
-    height: 38px; /* Height from GameConfig */
+    width: 25px; /* Width from GameConfig */
+    height: 25px; /* Height from GameConfig */
     margin: 4px; /* Margin from GameConfig */
     transform: scale(1); /* Adjust scale if needed */
-    /* border: 1px solid green */
+    border: 1px solid green
+}
+
+.es-1{
+    /* background-image: url('assets/enemy-ship-1.png'); */
 }
 
 .explosion{
     position: absolute;
-    background-image: url('assets/explosion.png');
+    background-image: url('./src/assets/explosion.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -90,5 +105,6 @@ body{
     height: 38px; /* Height from GameConfig */
     margin: 4px; /* Margin from GameConfig */
     transform: scale(1.5); /* Adjust scale if needed */
-    /* border: 1px solid green */
+    border: 1px solid green
+
 }

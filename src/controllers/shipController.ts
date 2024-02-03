@@ -1,4 +1,4 @@
-import { GameConfig } from '../config';
+import { GameConfig } from '../../config';
 
 
 export function move_ship(ship:HTMLElement, direction:string) {

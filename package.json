@@ -4,15 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc --outDir ./build --watch",
-    "build": "tsc --outDir ./build && node fix-import-build.js",
-    "clean": "rimraf ./build"
+    "start": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
+    "clean": "rimraf ./dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/connect-history-api-fallback": "^1.5.4",
+    "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^8.2.2",
-    "typescript": "^5.3.3"
+    "css-loader": "^6.10.0",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^3.3.4",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }

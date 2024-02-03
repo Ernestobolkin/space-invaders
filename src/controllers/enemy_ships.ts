@@ -1,11 +1,4 @@
-import { GameConfig } from "../config";
-
-interface EnemyShip {
-    gameLocation: {
-        x: number;
-        y: number;
-    };
-}
+import { GameConfig } from "../../config";
 
 export function build_enemies() {
     const enemyContainer = document.getElementById('enemy-container');
@@ -19,7 +12,7 @@ export function build_enemies() {
     for (let i = 0; i < matrixRows; i++) {
         for (let j = 0; j < matrixSize; j++) {
             const enemy = document.createElement('div');
-            enemy.className = 'enemy-ship shadow en' + i;
+            enemy.className = 'enemy-ship shadow es-1 en' + i;
             enemy.style.left = `${j * (38 + 4 + extraSpace)}px`; // from css
             enemy.style.top = `${i * (38 + 4 + extraSpace)}px`; // from css
             enemyContainer.appendChild(enemy);
@@ -36,9 +29,6 @@ export function updateEnemyPositions() {
     if (!enemyContainer) {
         return;
     }
-    const rect = enemyContainer.getBoundingClientRect();
-    const containerWidth = rect.width;
-    const containerHeight = rect.height;
     const enemies = enemyContainer.getElementsByClassName('enemy-ship');
     let reverseDirection = false;
 
@@ -47,12 +37,6 @@ export function updateEnemyPositions() {
         // Ensure the enemy is treated as an HTMLElement
         const enemy = enemies[i] as HTMLElement;
         const boundaries = enemy.getBoundingClientRect();
-        const enemyLocations: EnemyShip = {
-            gameLocation: {
-                x: boundaries.left - rect.left,
-                y: boundaries.top - rect.top
-            }
-        };
         // changeEnemyPosition(enemy, enemyLocations);
         let currentLeft = parseInt(enemy.style.left, 10);
         if (isNaN(currentLeft)) {
@@ -69,6 +53,7 @@ export function updateEnemyPositions() {
 
     // If any enemy hit the edge, reverse direction and descend all enemies
     if (reverseDirection) {
+        console.log("a")
         GameConfig.enemy_ships.direction *= -1;
         for (let i = 0; i < enemies.length; i++) {
             const enemy = enemies[i] as HTMLElement; // Ensure the enemy is treated as an HTMLElement
@@ -95,11 +80,14 @@ export function updateEnemyPositions() {
         }
     }
 
-    const initialEnemyCount = GameConfig.enemy_ships.group_size * GameConfig.enemy_ships.group_rows;
-    const enemiesDestroyed = initialEnemyCount - enemiesCount;
-    const speedIncrease = Math.floor(enemiesDestroyed / 3);
-    shipSpeed += speedIncrease * GameConfig.enemy_ships.add_speed_on_descent;
+    // const initialEnemyCount = GameConfig.enemy_ships.group_size * GameConfig.enemy_ships.group_rows;
+    // const enemiesDestroyed = initialEnemyCount - enemiesCount;
+    // const speedIncrease = Math.floor(enemiesDestroyed / 3);
+    // shipSpeed += speedIncrease * GameConfig.enemy_ships.add_speed_on_descent;
 }
+
+
+
 
 
 function bulletCollision(bullet: HTMLElement, enemy: HTMLElement) {
@@ -115,8 +103,6 @@ function bulletCollision(bullet: HTMLElement, enemy: HTMLElement) {
 }
 
 function ship_explosion(ship: HTMLElement) {
-    //add explosion css class to the div classes
-    ship.style.backgroundImage = "url('assets/explosion.png')";
     ship.className = 'explosion';
     setTimeout(function () {
         ship.remove();
